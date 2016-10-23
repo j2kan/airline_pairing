@@ -1,0 +1,13 @@
+optimization project:
+
+1. schedule generation - forecast demand, competitors, desired market
+	*generic flight schedule
+2. fleet assignment - # of aircrafts by fleet type, cost and revenue, idle
+	*assignment of fleet to schedule
+3. maintenance routing - idle, status, regulations
+	*task assignment during idle
+4. crew scheduling - #crew by fleet, status, cost
+	*assignment of task per crew
+
+schedule -> fleet -> maintenance routing -> crew scheduling
+
