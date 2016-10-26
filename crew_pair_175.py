@@ -33,17 +33,28 @@ def find_child(lst_of_nodes):
 		# print "before recursion, our lst", lst
 		find_child(lst)
 
-
-def find_child_iterative(lst_of_nodes):
+def find_child_iterative(lst_of_nodes,long_paths):
 	count = 0
 	while (not not lst_of_nodes):
 		count += 1
+                if len(lst_of_nodes[0])>8:
+                    lst_of_nodes.pop(0)
+                    continue
+                if len(lst_of_nodes[0]) >6:
+                    long_paths += 1
+                if len(lst_of_nodes[0])>6 and long_paths>100000:
+                    lst_of_nodes.pop(0)
+                    continue
 		if lst_of_nodes[0][-1] == 174:
 			print "at the home base yo, we gucci.", lst_of_nodes[0]
 			possible_crews.append(lst_of_nodes.pop(0))
-		dup_len = len(access_flight[lst_of_nodes[0][-1]].child)-1
-		temp = lst_of_nodes[0]
-		for i in range(dup_len):
+		dup_len = 0
+                try:
+                    dup_len = len(access_flight[lst_of_nodes[0][-1]].child)-1
+		    temp = lst_of_nodes[0]
+		except:
+                    continue
+                for i in range(dup_len):
 			temp = temp[:]
 			lst_of_nodes.insert(0,temp)
 		j = 0
@@ -66,7 +77,7 @@ def find_crews(possible_crews, visited, crew):
 		if add:
 			crew.append(possible_crews[i])
 			for flight in possible_crews[i]:
-				if flight not in [0,175]:
+				if flight not in [0,174]:
 					visited.append(flight)
 		i += 1
 
@@ -264,7 +275,8 @@ for node in flights: #for all flights that's not in the dummy
 
 possible_crews = [] #all possible crews
 lst = [[0]] #head
-find_child_iterative(lst)
+long_paths = 0
+find_child_iterative(lst, long_paths)
 solution = {}
 sol_num = 1
 possible_crews = sorted(possible_crews, key=len)
@@ -273,12 +285,15 @@ crew = []
 i = len(possible_crews)
 print "start to find crew"
 while i >=1:
+        if sol_num>1:
+            break
 	i -= 1
 	visited = [-1]
 	crew = []
 	temp = possible_crews[i:]+possible_crews[:i]
 	find_crews(temp, visited, crew)
-	if len(visited) == 173:
+	if len(visited) == 174:#-1 is in there that's why, should be 174
+                print visited
 		crew.sort()
 		add=True
 		for key in solution:
