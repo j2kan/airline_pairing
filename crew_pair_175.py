@@ -48,8 +48,8 @@ def find_child_iterative(lst_of_nodes):
 		except:
 			continue
 		for i in range(dup_len):
-		temp = temp[:]
-		lst_of_nodes.insert(0,temp)
+			temp = temp[:]
+			lst_of_nodes.insert(0,temp)
 		j = 0
 		# print "before while loop", lst, "dup length", dup_len
 		# print "here's the list of nodes" , lst_of_nodes
