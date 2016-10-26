@@ -39,7 +39,7 @@ def find_child_iterative(lst_of_nodes):
 			lst_of_nodes.pop(0)
 			continue
 		if lst_of_nodes[0][-1] == 174:
-			print "at the home base yo, we gucci.", lst_of_nodes[0]
+			#print "at the home base yo, we gucci.", lst_of_nodes[0]
 			possible_crews.append(lst_of_nodes.pop(0))
 		dup_len = 0
 		try:
@@ -261,8 +261,8 @@ for node in flights: #for all flights that's not in the dummy
 			# print "flight: ", j, "feasible", feasible
 			if feasible==1 and flight_num==j:
 				node.add_node(int(idx))
-	print flight_num
-	print node.child
+	#print flight_num
+	#print node.child
 
 
 possible_crews = [] #all possible crews
@@ -270,7 +270,7 @@ lst = [[0]] #head
 find_child_iterative(lst)
 solution = {}
 sol_num = 1
-possible_crews = sorted(possible_crews, key=len)
+possible_crews = sorted(possible_crews, key=len, reverse=True)
 visited = [-1]
 crew = []
 i = len(possible_crews)
