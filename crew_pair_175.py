@@ -283,7 +283,7 @@ while i >=1:
 	crew = []
 	temp = possible_crews[i:]+possible_crews[:i]
 	find_crews(temp, visited, crew)
-	if len(visited) > 170:#-1 is in there that's why, should be 174
+	if len(visited) > 171:#-1 is in there that's why, should be 174
 		print visited
 		crew.sort()
 		add=True
