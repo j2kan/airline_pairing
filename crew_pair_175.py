@@ -60,6 +60,12 @@ def find_child_iterative(lst_of_nodes):
 
 def find_crews(possible_crews, visited, crew):
 	i=0
+	#force 40 into a flight plan.
+	crew.append([0,25,40,174])
+	for flight in [0,25,40,174]:
+		if flight not in [0,174]:
+			visited.append(flight)
+
 	while i<len(possible_crews):
 		add = True
 		for visit in visited:
