@@ -34,24 +34,22 @@ def find_child(lst_of_nodes):
 		find_child(lst)
 
 def find_child_iterative(lst_of_nodes):
-	count = 0
 	while (not not lst_of_nodes):
-		count += 1
-                if len(lst_of_nodes[0])>8:
-                    lst_of_nodes.pop(0)
-                    continue
+		if len(lst_of_nodes[0])>7:
+			lst_of_nodes.pop(0)
+			continue
 		if lst_of_nodes[0][-1] == 174:
 			print "at the home base yo, we gucci.", lst_of_nodes[0]
 			possible_crews.append(lst_of_nodes.pop(0))
 		dup_len = 0
-                try:
-                    dup_len = len(access_flight[lst_of_nodes[0][-1]].child)-1
-		    temp = lst_of_nodes[0]
+		try:
+			dup_len = len(access_flight[lst_of_nodes[0][-1]].child)-1
+			temp = lst_of_nodes[0]
 		except:
-                    continue
-                for i in range(dup_len):
-			temp = temp[:]
-			lst_of_nodes.insert(0,temp)
+			continue
+		for i in range(dup_len):
+		temp = temp[:]
+		lst_of_nodes.insert(0,temp)
 		j = 0
 		# print "before while loop", lst, "dup length", dup_len
 		# print "here's the list of nodes" , lst_of_nodes
@@ -59,7 +57,6 @@ def find_child_iterative(lst_of_nodes):
 			# print "currently j", j, "adding this", access_flight[lst_of_nodes[j][-1]].child[j]
 			lst_of_nodes[j].append(access_flight[lst_of_nodes[j][-1]].child[j])
 			j+=1
-		print count
 
 def find_crews(possible_crews, visited, crew):
 	i=0
@@ -279,15 +276,15 @@ crew = []
 i = len(possible_crews)
 print "start to find crew"
 while i >=1:
-        if sol_num>1:
+        if sol_num>2:
             break
 	i -= 1
 	visited = [-1]
 	crew = []
 	temp = possible_crews[i:]+possible_crews[:i]
 	find_crews(temp, visited, crew)
-	if len(visited) == 174:#-1 is in there that's why, should be 174
-                print visited
+	if len(visited) > 170:#-1 is in there that's why, should be 174
+		print visited
 		crew.sort()
 		add=True
 		for key in solution:
