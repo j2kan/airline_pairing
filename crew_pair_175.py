@@ -33,16 +33,11 @@ def find_child(lst_of_nodes):
 		# print "before recursion, our lst", lst
 		find_child(lst)
 
-def find_child_iterative(lst_of_nodes,long_paths):
+def find_child_iterative(lst_of_nodes):
 	count = 0
 	while (not not lst_of_nodes):
 		count += 1
                 if len(lst_of_nodes[0])>8:
-                    lst_of_nodes.pop(0)
-                    continue
-                if len(lst_of_nodes[0]) >6:
-                    long_paths += 1
-                if len(lst_of_nodes[0])>6 and long_paths>100000:
                     lst_of_nodes.pop(0)
                     continue
 		if lst_of_nodes[0][-1] == 174:
@@ -275,8 +270,7 @@ for node in flights: #for all flights that's not in the dummy
 
 possible_crews = [] #all possible crews
 lst = [[0]] #head
-long_paths = 0
-find_child_iterative(lst, long_paths)
+find_child_iterative(lst)
 solution = {}
 sol_num = 1
 possible_crews = sorted(possible_crews, key=len)
