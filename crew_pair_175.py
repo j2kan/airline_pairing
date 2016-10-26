@@ -35,7 +35,7 @@ def find_child(lst_of_nodes):
 
 def find_child_iterative(lst_of_nodes):
 	while (not not lst_of_nodes):
-		if len(lst_of_nodes[0])>7:
+		if len(lst_of_nodes[0])>8:
 			lst_of_nodes.pop(0)
 			continue
 		if lst_of_nodes[0][-1] == 174:
