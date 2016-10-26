@@ -35,7 +35,7 @@ def find_child(lst_of_nodes):
 
 def find_child_iterative(lst_of_nodes):
 	while (not not lst_of_nodes):
-		if len(lst_of_nodes[0])>8:
+		if len(lst_of_nodes[0])>6:
 			lst_of_nodes.pop(0)
 			continue
 		if lst_of_nodes[0][-1] == 174:
@@ -289,7 +289,7 @@ while i >=1:
 	crew = []
 	temp = possible_crews[i:]+possible_crews[:i]
 	find_crews(temp, visited, crew)
-	if len(visited) > 172:#-1 is in there that's why, should be 174
+	if len(visited) > 172: #-1 is in there that's why, should be 174
 		print visited
 		crew.sort()
 		add=True
