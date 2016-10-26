@@ -282,14 +282,14 @@ crew = []
 i = len(possible_crews)
 print "start to find crew"
 while i >=1:
-        if sol_num>2:
+        if sol_num>1:
             break
 	i -= 1
 	visited = [-1]
 	crew = []
 	temp = possible_crews[i:]+possible_crews[:i]
 	find_crews(temp, visited, crew)
-	if len(visited) > 172: #-1 is in there that's why, should be 174
+	if len(visited) > 173: #-1 is in there that's why, should be 174
 		print visited
 		crew.sort()
 		add=True
