@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import cPickle
+import csv
 df=pd.read_csv('flightdata2.csv',header=None)
 class Node:
 	def __init__(self, num=None, child=None):
@@ -62,8 +63,8 @@ def find_crews(possible_crews, visited, crew):
 	i=0
 	#force 40 into a flight plan.
 	crew.append([0,25,40,174])
-	crew.append([0,1,9,33,174])
-	for flight in [0,25,40,174,0,1,9,33,174]:
+	crew.append([0,1,9,15,33,174])
+	for flight in [0,25,40,174,0,1,9,15,33,174]:
 		if flight not in [0,174]:
 			visited.append(flight)
 
@@ -278,13 +279,89 @@ find_child_iterative(lst)
 solution = {}
 sol_num = 1
 possible_crews = sorted(possible_crews, key=len, reverse=True)
+
 visited = [-1]
 crew = []
 i = len(possible_crews)
 print "start to find crew"
+
+row = 0
+header = 1
+cost_file = open('flight_cost.csv', 'wb')
+cost_wr = csv.writer(cost_file,quoting=csv.QUOTE_NONE)
+dataset = pd.read_csv('cost_file.csv', header=None)
+print dataset[0][0], "departure of flight 1"
+print dataset[1][0], "arrival of flight 1"
+
+idx = 0
+# 3 variables: prev, leaving, arriving
+for crew in possible_crews:
+	idx += 1
+	costs = []
+	cost = 0
+	found = False
+	for node in crew:
+		if node == 174:
+			None
+			# costs.append(cost)
+		elif node == 0:
+			prev = node
+		elif found:
+			# print node, "node"
+			# print prev, "prev"
+			# print crew, "the crew"
+			difference = (dataset[0][node-1]-dataset[1][prev-1])
+			cost = cost + difference
+			prev = node
+		else:
+			found = True
+			prev = node
+	# print cost,"cost", crew, costs
+	# break
+	costs.append(idx)
+	costs.append(cost) 
+	cost_wr.writerow(costs)
+myfile = open('max_8_flights_'+str(row)+'.csv', 'wb')
+wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
+for i in possible_crews:
+	if row % 500000 == 0:
+		myfile.close()
+		myfile = open('max_8_flights_'+str(row)+'.csv', 'wb')
+		wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
+	a=[]
+	if row == 0:
+		a.append(0)
+	while header < 174:
+		a.append(header)
+		header += 1
+	if row == 0:
+		row += 1
+		wr.writerow(a)
+		a=[]
+	a.append(row)
+	count = 0
+	while count < 175:
+		if count == 0 or count ==174:
+			None
+		elif count in i:
+			a.append(1)
+		else:
+			a.append(0)
+		count += 1
+	# print a, "first path"
+	# total_time = 0
+	# depart_time = 0
+	# arrive_time = 0
+	# flight_found = 0
+	# for k in range (1, 173):
+	# 	if a[k] == 1 
+	wr.writerow(a)
+	row += 1
+
 while i >=1:
-        if sol_num>1:
-            break
+	break
+	if sol_num>1:
+		break
 	i -= 1
 	visited = [-1]
 	crew = []
@@ -306,12 +383,9 @@ while i >=1:
 
 print solution
 #save
-cPickle.dump(solution, open('save.p', 'wb')) 
+# cPickle.dump(solution, open('save.p', 'wb')) 
 #load
 #obj = cPickle.load(open('save.p', 'rb'))
-
-
-
 
 
 
